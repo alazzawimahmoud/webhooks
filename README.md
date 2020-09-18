@@ -1,4 +1,4 @@
-- lib:core: privately publishable library across micro-services 
+- lib:shared: privately publishable library across micro-services 
     * contains shared types
     * contains shared configurations
     * contains shared business logic across micro-services
