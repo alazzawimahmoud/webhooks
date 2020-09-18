@@ -31,9 +31,8 @@
     "frontend": {
       "tags": []
     },
-    "frontend-e2e": {
-      "tags": [],
-      "implicitDependencies": ["frontend"]
+    "worker": {
+      "tags": []
     }
   }
 }
