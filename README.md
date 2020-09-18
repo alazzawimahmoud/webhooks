@@ -30,3 +30,10 @@
 
 - Database instance
 
+# Run locally
+Ensure docker-compose can read `.env` variables
+```
+    set -a
+    source .env
+    docker-compose up -d
+```
