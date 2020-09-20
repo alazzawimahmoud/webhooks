@@ -6,4 +6,6 @@ export interface IWebhookConfig {
     subscriptions: MessageTypes[]
 }
 
-export interface IWebhookMessage extends IMessageData, IWebhookConfig { }
+export interface IWebhookMessage extends IMessageData {
+    config: IWebhookConfig
+}

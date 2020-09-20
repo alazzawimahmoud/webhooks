@@ -1,25 +1,25 @@
 export interface IData {
-    [key: string]: any;
+    data: any
 }
 
 export interface IMessageType {
-        role: string;
-        key: string;
-        cmd: string;
-        description: string;
+    role: string;
+    key: MessageTypes;
+    cmd: string;
+    description: string;
 }
 
 export type MessageTypes = 'USER_CHECKED_IN' | 'USER_CHECKED_OUT';
 
-export const MessageTypes: Record<MessageTypes, IMessageType>= {
+export const MessageTypes: Record<MessageTypes, IMessageType> = {
     USER_CHECKED_IN: {
-        key: 'user_check_in',
+        key: 'USER_CHECKED_IN',
         cmd: 'users.check_in',
         description: 'User has checked in.',
         role: '',
     },
     USER_CHECKED_OUT: {
-        key: 'user_check_out',
+        key: 'USER_CHECKED_OUT',
         cmd: 'users.check_out',
         description: 'User has checked out.',
         role: '',

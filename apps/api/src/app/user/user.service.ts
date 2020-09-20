@@ -1,8 +1,7 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IMessageType, IWebhookMessage, MessageTypes, WORKER_SERVICE_NAME } from '@webhooks/shared';
 import { Repository, InsertResult, FindConditions } from 'typeorm';
+import { EventService } from '../event/event.service';
 import { User } from './user.entity';
 import { IUser } from './user.interface';
 
@@ -10,25 +9,18 @@ import { IUser } from './user.interface';
 @Injectable()
 export class UserService {
   constructor(
-    @Inject(WORKER_SERVICE_NAME)
-    private readonly workerService: ClientProxy,
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>
+    private readonly userRepository: Repository<User>,
+    private readonly eventService: EventService
   ) { }
 
-  async checkIn(): Promise<boolean> {
+  async checkIn(data: any): Promise<boolean> {
     // Check-in logic
-    
-    // get client webhook config
-    const webhookMessage: IWebhookMessage = {
-      url: '',
-      token: '',
-      subscriptions: [],
-      timestamp: new Date()
-    };
+    // ...
 
-    // send message
-    this.workerService.send<IMessageType, IWebhookMessage>(MessageTypes.USER_CHECKED_IN, webhookMessage)
+    // Handle event
+    await this.eventService.checkIn(data);
+    
     return true;
   }
 

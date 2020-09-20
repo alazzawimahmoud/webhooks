@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Param, Post } from '@nestjs/common';
+import { Controller, UseGuards, Get, Param, Post, Body, Logger } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { IUser } from './user.interface';
@@ -10,13 +10,17 @@ export class UserController {
   ) { }
 
   @Post('check-in')
-  async checkIn(): Promise<boolean> {
+  async checkIn(@Body() data: any = {}): Promise<boolean> {
     // Add check-in logic
+    
+    Logger.log('checkIn - incoming check in');
+
     try {
-      return await this.userService.checkIn();
+      return await this.userService.checkIn(data);
     } catch (error) {
 
     }
+    
     return true;
   }
 }

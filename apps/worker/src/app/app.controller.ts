@@ -1,6 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Logger } from '@nestjs/common';
 import { Ctx, MessagePattern, Payload, RedisContext } from '@nestjs/microservices';
-import { MessageTypes, IMessageData } from '@webhooks/shared';
+import { MessageTypes, IWebhookMessage } from '@webhooks/shared';
 import { AppService } from './app.service';
 
 @Controller()
@@ -9,10 +9,13 @@ export class AppController {
 
   @MessagePattern(MessageTypes.USER_CHECKED_IN)
   async userCheckedIn(
-    @Payload() payload: IMessageData,
+    @Payload() payload: IWebhookMessage,
     @Ctx() context: RedisContext
   ) {
-    // Process incoming message.
-    return null;
+    
+    Logger.log(`userCheckedIn - message received`);
+    Logger.log(payload);
+
+    await this.appService.sendWebhookMessage(payload)
   }
 }

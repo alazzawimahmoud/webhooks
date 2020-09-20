@@ -1490,6 +1490,11 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.6.4"
 
+"@lifeomic/attempt@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@lifeomic/attempt/-/attempt-3.0.0.tgz#75fecc204f8b0ac18b5363b4404bb32450f01859"
+  integrity sha512-Ibk4Vfl46dSrhtH5fHsrTA4waAuyP7/qcr3uo0mO70azRc6LWgJILlMy3B1oOvyiN9jQcdqwsThaQkPKLiYKTg==
+
 "@nestjs/common@^7.0.0":
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.4.4.tgz#400011464792e446949e9cb719bdf7ede31da725"
