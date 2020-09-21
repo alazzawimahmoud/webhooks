@@ -1,11 +1,33 @@
+# Run locally
+
+Install dependencies 
+```
+    yarn install
+```
+
+Run postgres and redis
+```
+    set -a
+    source .env
+    docker-compose up -d
+```
+* Ensures docker-compose can read `.env` variables
+
+Run api
+```
+    yarn start api
+```
+
+Run worker
+```
+    yarn start worker
+```
+
+# Contents
 - lib:shared: privately publishable library across micro-services 
     * contains shared types
     * contains shared configurations
     * contains shared business logic across micro-services
-
-- lib:client: publicly publishable helper library for consumers 
-    * contains types used by final consumers of webhooks
-    * methods to unwrapped received data
 
 - app:api: business logic
     * publish messages from controllers, with configuration based on business logic
@@ -16,6 +38,16 @@
     * receives messages, checks & process them through controllers
     * responsible of sending secure messages to final consumers
 
+- Redis instance 
+
+- Database instance
+
+
+# TODO
+- lib:client: publicly publishable helper library for consumers 
+    * contains types used by final consumers of webhooks
+    * methods to unwrapped received data
+
 - app:frontend: angular app to interact with API
     * trigger user events
     * submit consumer webhooks
@@ -25,15 +57,3 @@
     * POST REST API route accepting a secured webhook messages
     * Frontend to display incoming messages
 
-
-- Redis instance 
-
-- Database instance
-
-# Run locally
-Ensure docker-compose can read `.env` variables
-```
-    set -a
-    source .env
-    docker-compose up -d
-```
