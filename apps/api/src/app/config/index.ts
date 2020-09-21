@@ -5,7 +5,9 @@ import {
     generateWorkerMicroserviceOptions,
     WORKER_SERVICE_NAME
 } from '@webhooks/shared';
+import { Company } from '../company/company.entity';
 import { User } from '../user/user.entity';
+import { Webhook } from '../webhook/webhook.entity';
 
 export const WEBHOOK_CONFIG: ClientsModuleOptions = [
     {
@@ -25,5 +27,5 @@ export const TYPE_ORM_CONFIG: TypeOrmModuleOptions = {
     password: configuration().postgres_password,
     database: configuration().postgres_db,
     synchronize: true,
-    entities: [User]
+    entities: [Company, User, Webhook]
 };
