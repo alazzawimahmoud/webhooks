@@ -1,21 +1,24 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpService, Injectable, Logger } from '@nestjs/common';
 import { IWebhookMessage } from '@webhooks/shared';
-import { retry } from './app.utility';
+import { MAX_ATTEMPTS, retry } from './app.utility';
 
 @Injectable()
 export class AppService {
-  async sendWebhookMessage(message: IWebhookMessage) {
-    await retry(async function () {
-      try {
-        // Execute sending 
-        const { data, timestamp } = message
-        const { url, token, subscriptions } = message.config;
+  constructor(private httpService: HttpService) { }
+  sendWebhookMessage(message: IWebhookMessage) {
+    let _attemptNum = 0;
+    retry(async ({ attemptNum }) => {
+      _attemptNum = attemptNum + 1;
+      Logger.log(`sendWebhookMessage - processing incoming message | attempt: ${attemptNum + 1}/${MAX_ATTEMPTS}`);
 
-        Logger.log(message);
+      // Execute sending 
+      const { data, timestamp } = message
+      const { url, token, subscriptions } = message.config;
 
-      } catch (error) {
-
-      }
-    });
+      // Fake test
+      return this.httpService.post('http://localhost:4000/api/test', data).toPromise();
+    })
+      .then(() => Logger.log(`sendWebhookMessage - webhook message sent after ${_attemptNum} attempts`))
+      .catch(() => Logger.error(`sendWebhookMessage - webhook message sending failed after ${_attemptNum} attempts`))
   }
 }

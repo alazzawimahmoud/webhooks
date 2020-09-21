@@ -12,12 +12,8 @@ export const configuration = () => ({
 export function generateWorkerMicroserviceOptions(): MicroserviceOptions {
   return {
     transport: Transport.REDIS,
-    options: generateTransportOptions()
-  }
-}
-
-export function generateTransportOptions() {
-  return {
-    url: `redis://localhost:${process.env.REDIS_PORT}`
+    options: {
+      url: `redis://localhost:${process.env.REDIS_PORT}`
+    }
   }
 }

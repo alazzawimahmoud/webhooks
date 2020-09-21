@@ -13,7 +13,7 @@ export class EventService {
         private readonly workerService: ClientProxy,
     ) { }
 
-    async checkIn(data: any): Promise<boolean> {
+    checkIn(data: any): void {
         Logger.log(`checkIn - processing check in ...`);
 
         // get client webhook config
@@ -24,7 +24,7 @@ export class EventService {
         }
 
         // Check if client has subscribed to this topic
-        if (clientWebhookConfig.subscriptions.includes('USER_CHECKED_IN')) {
+        if (!clientWebhookConfig.subscriptions.includes('USER_CHECKED_IN')) {
             return null;
         }
 
@@ -36,15 +36,18 @@ export class EventService {
         };
 
         // send message
-        this.workerService.send<IMessageType, IWebhookMessage>(
+        const operation = this.workerService.send<IMessageType, IWebhookMessage>(
             MessageTypes.USER_CHECKED_IN,
             webhookMessage
-        );
+        )
 
-        Logger.log(`checkIn - message sent: `);
-        Logger.log(webhookMessage);
-
-        return true;
+        operation.toPromise()
+            .then(() => {
+                Logger.log(`checkIn - message sent`);
+            })
+            .catch((error) => {
+                Logger.error(`checkIn - message not sent`);
+            })
     }
 
 }

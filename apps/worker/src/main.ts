@@ -11,6 +11,7 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const options = generateWorkerMicroserviceOptions();
+  console.log(options)
   const app = await NestFactory.createMicroservice(AppModule, options);
   app.listen(() => {
     Logger.log('Worker Micro-service is listening ...');

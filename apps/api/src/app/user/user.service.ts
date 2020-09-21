@@ -19,7 +19,7 @@ export class UserService {
     // ...
 
     // Handle event
-    await this.eventService.checkIn(data);
+    this.eventService.checkIn(data);
     
     return true;
   }

@@ -1,4 +1,4 @@
-import { ClientsModuleOptions } from "@nestjs/microservices";
+import { ClientsModuleOptions, Transport } from "@nestjs/microservices";
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import {
     configuration,
@@ -10,7 +10,10 @@ import { User } from '../user/user.entity';
 export const WEBHOOK_CONFIG: ClientsModuleOptions = [
     {
         name: WORKER_SERVICE_NAME,
-        ...generateWorkerMicroserviceOptions().options
+        transport: Transport.REDIS,
+        options: {
+            ...generateWorkerMicroserviceOptions().options
+        }
     },
 ];
 

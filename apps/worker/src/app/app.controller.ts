@@ -14,8 +14,9 @@ export class AppController {
   ) {
     
     Logger.log(`userCheckedIn - message received`);
-    Logger.log(payload);
 
-    await this.appService.sendWebhookMessage(payload)
+    this.appService.sendWebhookMessage(payload);
+
+    return true;
   }
 }
