@@ -13,6 +13,10 @@ export class CompanyService {
     private readonly companyRepository: Repository<Company>
   ) { }
 
+  findAll(): Promise<Company[]> {
+    return this.companyRepository.find();
+  }
+
   findOne(query: FindConditions<Company>): Promise<Company> {
     return this.companyRepository.findOne(query);
   }

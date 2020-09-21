@@ -14,12 +14,11 @@ export class UserService {
     private readonly eventService: EventService
   ) { }
 
-  async checkIn(data: any): Promise<boolean> {
+  async checkIn(user: Partial<IUser>): Promise<boolean> {
     // Check-in logic
-    // ...
 
     // Handle event
-    this.eventService.checkIn(data);
+    this.eventService.checkIn(user)
     
     return true;
   }

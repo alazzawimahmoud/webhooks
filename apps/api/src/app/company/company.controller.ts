@@ -8,6 +8,16 @@ export class CompanyController {
     private readonly companyService: CompanyService
   ) { }
 
+  @Get()
+  findAll() {
+    return this.companyService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.companyService.findOne({ id });
+  }
+  
   @Post()
   async create(@Body() company: ICreateCompany): Promise<ICompany> {
     try {
@@ -16,11 +26,5 @@ export class CompanyController {
     } catch (error) {
     }
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.companyService.findOne({ id });
-  }
-
 
 }
